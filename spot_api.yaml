@@ -181,6 +181,8 @@ paths:
                         quoteAsset:
                           type: string
                           example: "BTC"
+                        quotePrecision:
+                          type: integer
                         quoteAssetPrecision:
                           type: integer
                           format: int32
@@ -228,11 +230,6 @@ paths:
                               tickSize:
                                 type: string
                                 example: "0.00000100"
-                            required:
-                              - filterType
-                              - minPrice
-                              - maxPrice
-                              - tickSize
                         permissions:
                           type: array
                           items:
@@ -467,10 +464,11 @@ paths:
                 items:
                   type: array
                   items:
-                    oneOf:
-                      - type: integer
-                        format: int64
-                      - type: string
+                    type: string
+                    # oneOf:
+                    #   - type: integer
+                    #     format: int64
+                    #   - type: string
                     minItems: 12
                     maxItems: 12
                   example:
@@ -615,9 +613,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/ticker'
-                  - $ref: '#/components/schemas/tickerList'
+                $ref: '#/components/schemas/tickerList'
+                # oneOf:
+                #   - $ref: '#/components/schemas/ticker'
+                #   - $ref: '#/components/schemas/tickerList'
         '400':
           description: Bad Request
           content:
@@ -646,9 +645,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/priceTicker'
-                  - $ref: '#/components/schemas/priceTickerList'
+                $ref: '#/components/schemas/priceTickerList'
+                # oneOf:
+                #   - $ref: '#/components/schemas/priceTicker'
+                #   - $ref: '#/components/schemas/priceTickerList'
         '400':
           description: Bad Request
           content:
@@ -677,9 +677,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/bookTicker'
-                  - $ref: '#/components/schemas/bookTickerList'
+                $ref: '#/components/schemas/bookTickerList'
+                # oneOf:
+                #   - $ref: '#/components/schemas/bookTicker'
+                #   - $ref: '#/components/schemas/bookTickerList'
         '400':
           description: Bad Request
           content:
@@ -941,10 +942,11 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/orderResponseAck'
-                  - $ref: '#/components/schemas/orderResponseResult'
-                  - $ref: '#/components/schemas/orderResponseFull'
+                $ref: '#/components/schemas/orderResponseFull'
+                # oneOf:
+                #   - $ref: '#/components/schemas/orderResponseAck'
+                #   - $ref: '#/components/schemas/orderResponseResult'
+                #   - $ref: '#/components/schemas/orderResponseFull'
         '400':
           description: Bad Request
           content:
@@ -1172,11 +1174,10 @@ paths:
                       side:
                         type: string
                         example: BUY
-                      fills:
+                      fills: 
                         type: array
                         items:
-                          type: string
-                        maxItems: 0
+                          type: object
                     required:
                       - symbol
                       - orderId
@@ -2723,10 +2724,11 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/marginOrderResponseAck'
-                  - $ref: '#/components/schemas/marginOrderResponseResult'
-                  - $ref: '#/components/schemas/marginOrderResponseFull'
+                $ref: '#/components/schemas/marginOrderResponseFull'
+                # oneOf:
+                #   - $ref: '#/components/schemas/marginOrderResponseAck'
+                #   - $ref: '#/components/schemas/marginOrderResponseResult'
+                #   - $ref: '#/components/schemas/marginOrderResponseFull'
         '400':
           description: Bad Request
           content:
@@ -5061,10 +5063,39 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/snapshotSpot'
-                  - $ref: '#/components/schemas/snapshotMargin'
-                  - $ref: '#/components/schemas/snapshotFutures'
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int64
+                    example: 200
+                  msg:
+                    type: string
+                    example: ""
+                  snapshotVos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        data:
+                          type: object
+                          additionalProperties:
+                            type: object
+                        type:
+                          type: string
+                          example: "spot"
+                        updateTime:
+                          type: integer
+                          format: int64
+                          example: 1576281599000
+                      required:
+                        - data
+                        - type
+                        - updateTime
+                # oneOf:
+                #   - $ref: '#/components/schemas/snapshotSpot'
+                #   - $ref: '#/components/schemas/snapshotMargin'
+                #   - $ref: '#/components/schemas/snapshotFutures'
         '400':
           description: Bad Request
           content:
@@ -8440,9 +8471,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/subAccountUSDTFuturesDetails'
-                  - $ref: '#/components/schemas/subAccountCOINFuturesDetails'
+                $ref: '#/components/schemas/subAccountUSDTFuturesDetails'
+                # oneOf:
+                #   - $ref: '#/components/schemas/subAccountUSDTFuturesDetails'
+                #   - $ref: '#/components/schemas/subAccountCOINFuturesDetails'
         '400':
           description: Bad Request
           content:
@@ -8490,9 +8522,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/subAccountUSDTFuturesSummary'
-                  - $ref: '#/components/schemas/subAccountCOINFuturesSummary'
+                $ref: '#/components/schemas/subAccountUSDTFuturesSummary'
+                # oneOf:
+                #   - $ref: '#/components/schemas/subAccountUSDTFuturesSummary'
+                #   - $ref: '#/components/schemas/subAccountCOINFuturesSummary'
         '400':
           description: Bad Request
           content:
@@ -8534,9 +8567,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/subAccountUSDTFuturesPositionRisk'
-                  - $ref: '#/components/schemas/subAccountCOINFuturesPositionRisk'
+                $ref: '#/components/schemas/subAccountUSDTFuturesPositionRisk'
+                # oneOf:
+                #   - $ref: '#/components/schemas/subAccountUSDTFuturesPositionRisk'
+                #   - $ref: '#/components/schemas/subAccountCOINFuturesPositionRisk'
         '400':
           description: Bad Request
           content:
@@ -10229,9 +10263,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/savingsFlexiblePurchaseRecord'
-                  - $ref: '#/components/schemas/savingsFixedActivityPurchaseRecord'
+                $ref: '#/components/schemas/savingsFixedActivityPurchaseRecord'
+                # oneOf:
+                #   - $ref: '#/components/schemas/savingsFlexiblePurchaseRecord'
+                #   - $ref: '#/components/schemas/savingsFixedActivityPurchaseRecord'
         '400':
           description: Bad Request
           content:
@@ -10272,9 +10307,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/savingsFlexibleRedemptionRecord'
-                  - $ref: '#/components/schemas/savingsFixedActivityRedemptionRecord'
+                $ref: '#/components/schemas/savingsFixedActivityRedemptionRecord'
+                # oneOf:
+                #   - $ref: '#/components/schemas/savingsFlexibleRedemptionRecord'
+                #   - $ref: '#/components/schemas/savingsFixedActivityRedemptionRecord'
         '400':
           description: Bad Request
           content:
@@ -14711,9 +14747,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/bswapAddLiquidityPreviewCombination'
-                  - $ref: '#/components/schemas/bswapAddLiquidityPreviewSingle'
+                $ref: '#/components/schemas/bswapAddLiquidityPreviewCombination'
+                # oneOf:
+                #   - $ref: '#/components/schemas/bswapAddLiquidityPreviewCombination'
+                #   - $ref: '#/components/schemas/bswapAddLiquidityPreviewSingle'
         '400':
           description: Bad Request
           content:
@@ -14771,9 +14808,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/bswapRmvLiquidityPreviewCombination'
-                  - $ref: '#/components/schemas/bswapRmvLiquidityPreviewSingle'
+                $ref: '#/components/schemas/bswapRmvLiquidityPreviewCombination'
+                # oneOf:
+                #   - $ref: '#/components/schemas/bswapRmvLiquidityPreviewCombination'
+                #   - $ref: '#/components/schemas/bswapRmvLiquidityPreviewSingle'
         '400':
           description: Bad Request
           content:
@@ -19341,9 +19379,10 @@ components:
         m:
           type: boolean
           description: Was the buyer the maker?
-        M:
-          type: boolean
-          description: Was the trade the best price match?
+        # FIXME: kotlin data class 会造成 getter setter 重名
+        # M:
+        #   type: boolean
+        #   description: Was the trade the best price match?
       required:
         - a
         - p
