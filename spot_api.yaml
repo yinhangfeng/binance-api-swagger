@@ -8809,6 +8809,8 @@ paths:
         - $ref: '#/components/parameters/recvWindow'
         - $ref: '#/components/parameters/timestamp'
         - $ref: '#/components/parameters/signature' 
+      security:
+        - ApiKeyAuth: []
       responses:
         '200':
           description: Sub-account spot snapshot
@@ -18439,15 +18441,15 @@ components:
         - orderListId
         - clientOrderId
         - transactTime
-        - price
-        - origQty
-        - executedQty
-        - cummulativeQuoteQty
-        - status
-        - timeInForce
-        - type
-        - side
-        - fills
+        # - price
+        # - origQty
+        # - executedQty
+        # - cummulativeQuoteQty
+        # - status
+        # - timeInForce
+        # - type
+        # - side
+        # - fills
     marginOrder:
       type: object
       properties:
