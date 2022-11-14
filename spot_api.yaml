@@ -523,10 +523,11 @@ paths:
                 items:
                   type: array
                   items:
-                    oneOf:
-                      - type: integer
-                        format: int64
-                      - type: string
+                    # oneOf:
+                    #   - type: integer
+                    #     format: int64
+                    #   - type: string
+                    type: string
                     minItems: 12
                     maxItems: 12
                   example:
@@ -9024,13 +9025,14 @@ paths:
                   ipList: 
                     type: array
                     items: 
-                      anyOf:
-                        - type: string
-                          example: "0.0.0.0"
-                          description: "0.0.0.0 is just an initial state reference (no extra meaning).You can use `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList` to add an IP whitelist"
-                        - type: string
-                          example: "thirdPartyName"
-                          description: "only return if you open third party IP list and input a third party name. You can use `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList` to add third party name."
+                      type: string
+                      # anyOf:
+                      #   - type: string
+                      #     example: "0.0.0.0"
+                      #     description: "0.0.0.0 is just an initial state reference (no extra meaning).You can use `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList` to add an IP whitelist"
+                      #   - type: string
+                      #     example: "thirdPartyName"
+                      #     description: "only return if you open third party IP list and input a third party name. You can use `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList` to add third party name."
                   updateTime: 
                     type: integer
                     format: int64
@@ -15777,9 +15779,10 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/repaymentInfo'
-                  - $ref: '#/components/schemas/repaymentInfo2'
+                - $ref: '#/components/schemas/repaymentInfo'
+                # oneOf:
+                #   - $ref: '#/components/schemas/repaymentInfo'
+                #   - $ref: '#/components/schemas/repaymentInfo2'
         '400':
           description: Bad Request
           content:
